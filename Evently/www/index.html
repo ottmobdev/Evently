@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!--
+        Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
+        For details, see http://go.microsoft.com/fwlink/?LinkID=617521
+  
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+  -->
+        
+        
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+       
+        <title>Evently</title>
+    </head>
+    <body>
+        <!--<div class="app">
+            <p id="deviceready" class="event">Connecting to Device</p>
+        </div>
+             <link rel="stylesheet" type="text/css" href="css/index.css">
+                    <script type="text/javascript" src="scripts/index.js"></script>
+            -->
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+
+
+        <!--<script src="scripts/jquery-3.0.0.min.js"></script>
+        <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
+        <link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.css" />
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />-->
+
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+        <script src="scripts/EventSearchViewModel.js"></script>
+        <script src="scripts/EventSearchResultViewModel.js"></script>
+        <script src="scripts/EventSearchService.js"></script>
+        <script src="scripts/EventViewModel.js"></script>
+        <script src="scripts/app.js"></script>
+      
+
+        <div data-role="page" id="pageSearch">
+
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" class="ui-btn-active">One</a></li>
+                    <li><a href="#">Two</a></li>
+                </ul>
+            </div><!-- /navbar -->
+
+            <div data-role="header">
+                <h1></h1>
+            </div><!-- /header -->
+
+            <div role="main" class="ui-content">
+                <p>Page content goes here.</p>
+                <label for="basic">Text Input:</label>
+                <input type="text" name="name" id="basic" value="" data-mini="true">
+                <label for="basic">Text Input:</label>
+                <input type="text" name="name" id="basic" value="" data-mini="true">
+
+                <form data-bind="submit: doSearch">
+                    <input type="search" name="searchL" data-bind="value: searchLocation, valueUpdate: 'afterkeydown'" data-mini="true" />
+                    <input type="search" name="searchT" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" data-mini="true" />
+
+                    <input type="submit" value="Look them up" data-bind="enable: (searchTerm().length > 0 || searchLocation().length > 0) && isSearching() == false,
+                             click: doSearch" data-mini="true" />
+                </form>
+
+            </div><!-- /content -->
+
+
+            <input type="checkbox" name="checkbox-0 " data-bind="checked: useLocation">
+
+            <div data-role="footer">
+                <h4></h4>
+            </div><!-- /footer -->
+        </div><!-- /page -->
+
+        <!-- ### A page that renders the EventSearchResultsViewModel -->
+        <div data-role="page" data-theme="a" data-add-back-btn="true"
+             id="eventSearchResultView">
+            <div data-role="header" data-theme="a">
+                <h1>Results</h1>
+            </div>
+            <div data-role="content" data-theme="c" data-iscroll>
+                <!-- search results -->
+                <ul data-role="listview" data-filter="true">
+                    <!-- ko foreach: events, updateListviewOnChange:events -->
+                    <li>
+                        <a data-bind="click: $parent.eventClicked">
+                            <!--<div class="thumbnail-container">
+                                <img data-bind="attr: { src: thumbnail }" />
+                            </div>-->
+                            <h3 class="author" data-bind="text: title"></h3>
+                            <p class="text" data-bind="text: summary"></p>
+                        </a>
+                    </li>
+                    <!-- /ko -->
+                    <li>
+                        <a data-bind="click: loadMore" href="#">
+                            <h3 data-bind="visible: !isSearching()">Load more ...</h3>
+                            <h3 data-bind="visible: isSearching()">Loading ...</h3>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ### A page that renders the EventViewModel -->
+        <div data-role="page" data-theme="a" data-add-back-btn="true"
+             id="eventView">
+            <div data-role="header" data-theme="a">
+                <h1 data-bind="text: title">
+            </div>
+            <div data-role="content" data-theme="c" class="tweet">
+              
+                <!--<div class="thumbnailColumn">
+                    <img data-bind="attr: { src: thumbnail }" class="thumbnail" />
+                </div>-->
+                <div class="detailsColumn">
+                    <div class="author" data-bind="text: title"></div>
+                    <div class="text" data-bind="text: summary"></div>
+                    <div class="time" data-bind="text: datetime"></div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
