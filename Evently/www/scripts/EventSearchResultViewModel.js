@@ -12,8 +12,14 @@
     this.template = "eventSearchResultView"; 
     this.events = ko.observableArray();
     this.isSearching = ko.observable(false);
-    this.pageNumber = ko.observable(1);
+    
     this.searchString = "";
+
+    this.pageNumber = ko.observable(1);
+    
+    this.objectCount = ko.observable(0);
+    this.itemsPage = ko.observable(0);
+    this.pageCount = ko.observable(0);
 
     // --- public functions
 
@@ -22,6 +28,9 @@
         this.pageNumber = ko.observable(1);
         this.searchTerm = searchTerm;
         this.searchLocation = searchLocation;
+        this.objectCount = ko.observable(0);
+        this.itemsPage = ko.observable(0);
+        this.pageCount = ko.observable(0);
     };
 
     this.loadMore = function () {
@@ -40,6 +49,7 @@
                     temp.push(evnt);
                 });
                 that.events(temp);
+                $("#events").listview("refresh");
             }
         });
     };
