@@ -12,6 +12,9 @@
         //https://www.eventbriteapi.com/v3/events/search/?token=GDRKH2DV2TS5FEEYAPAB&location.address=%23knockoutjs&q=%23knockoutjs
         //http://allevents.in/
 
+        //https://www.eventbriteapi.com/v3/events/search/?token=GDRKH2DV2TS5FEEYAPAB&location.address=Ottawa&page=1&start_date.range_start=2016-10-01
+        //dateformat https://www.eventbriteapi.com/v3/events/search/?token=GDRKH2DV2TS5FEEYAPAB&location.address=Ottawa&page=1&start_date.range_start=2016-10-01T00:00:00
+
         var location;
         if (searchLocation.trim() !== "")
             location = '&location.address=' + encodeURIComponent(searchLocation); //+ 'Ottawa';
@@ -21,7 +24,8 @@
             term = '&q=' + encodeURIComponent(searchTerm); //'Ottawa';
         }
         term = term || "";
-        var url = baseUrl + location + term;
+        var url = baseUrl + "&page=" + pageNumber
+        url = url + location + term;
 
         $.ajax({
             dataType: "json",
