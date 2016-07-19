@@ -63,8 +63,8 @@
                 <input type="text" name="name" id="basic" value="" data-mini="true">
 
                 <form data-bind="submit: doSearch">
-                    <input type="search" name="searchL" data-bind="value: searchLocation, valueUpdate: 'afterkeydown'" data-mini="true" />
-                    <input type="search" name="searchT" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" data-mini="true" />
+                    <input type="search" name="searchL" data-bind="value: searchLocation, valueUpdate: 'afterkeydown'" data-mini="true" placeholder="Search Location"/>
+                    <input type="search" name="searchT" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" data-mini="true" placeholder="Search Term"/>
 
                     <input type="submit" value="Look them up" data-bind="enable: (searchTerm().length > 0 || searchLocation().length > 0) && isSearching() == false,
                              click: doSearch" data-mini="true" />
@@ -88,7 +88,7 @@
             </div>
             <div data-role="content" data-theme="c" data-iscroll>
                 <!-- search results -->
-                <ul data-role="listview" data-filter="true">
+                <ul data-role="listview" data-filter="true" id="events">
                     <!-- ko foreach: events, updateListviewOnChange:events -->
                     <li>
                         <a data-bind="click: $parent.eventClicked">
