@@ -23,14 +23,18 @@
 
     // --- public functions
 
-    this.init = function (searchLocation, searchTerm, eventViewModels) {
+    this.init = function (searchLocation, searchTerm, eventViewModels, pags) {
         this.events(eventViewModels);
         this.pageNumber = ko.observable(1);
         this.searchTerm = searchTerm;
         this.searchLocation = searchLocation;
-        this.objectCount = ko.observable(0);
-        this.itemsPage = ko.observable(0);
-        this.pageCount = ko.observable(0);
+
+        if (!$.isEmptyObject(pags)) {
+            this.objectCount(pags.object_count);
+            this.itemsPage(pags.page_size);
+            this.pageCount(pags.page_count);
+        }
+
     };
 
     this.loadMore = function () {
@@ -39,10 +43,11 @@
 
         $.mobile.loading('show');
 
-        eventSearchService.searchEvents(this.searchLocation, this.searchTerm, this.pageNumber(), function (events) {
+        eventSearchService.searchEvents(this.searchLocation, this.searchTerm, this.pageNumber(), function (pags,events) {
             that.isSearching(false);
             $.mobile.loading('hide');
-            // push all of the received tweets into our list in one atomic action
+            // push all of the received events into our list in one atomic action
+
             if (events.length > 0) {
                 var temp = ko.utils.unwrapObservable(that.events);
                 $.each(events, function (index, evnt) {

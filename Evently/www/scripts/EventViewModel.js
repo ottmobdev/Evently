@@ -12,13 +12,8 @@
     this.datetime  = ko.observable();
     this.eurl = ko.observable();
 
-    //this.author = ko.observable();
-    //this.text = ko.observable();
-    //this.time = ko.observable();
-    //this.thumbnail = ko.observable();
-
     // --- private functions
-    function parseDate(date) {
+    function parseDate1(date) {
         /// <summary>
         /// Parses the tweet date to give a more readable format.
         /// </summary>
@@ -47,12 +42,17 @@
         return diff.toFixed(0) + " days ago";
     }
 
+    function parseDate(date) {
+        date = date || "";
+        return date.substring(0, 10) + " " + date.substring(11, 16);
+    }
+
     // --- public functions
 
     this.init = function (evnt) {
         this.title(evnt.title);
         this.summary(evnt.summary);
-        this.datetime(parseDate(evnt.start));
+        this.datetime(parseDate(evnt.datetime));
     };
 
 

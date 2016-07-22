@@ -16,6 +16,7 @@
     this.useLocation = ko.observable();
     this.recentSearches = ko.observableArray();
 
+
     // --- private functions
 
     function saveState() {
@@ -65,13 +66,16 @@
         this.isSearching(true);
 
 
-        eventSearchService.searchEvents(that.searchLocation(), that.searchTerm(), 1, function (events) {
+        eventSearchService.searchEvents(that.searchLocation(), that.searchTerm(), 1, function (pagins, events) {
+
+
+
             if (events.length > 0) {
                 // store this search
                 addSearchTermToRecentSearches();
 
                 // navigate to the results view model
-                eventSearchResultViewModel.init(that.searchLocation(), that.searchTerm(), events);
+                eventSearchResultViewModel.init(that.searchLocation(), that.searchTerm(), events, pagins);
                 $.mobile.changePage("#" + eventSearchResultViewModel.template);
             } else {
                 that.userMessage("Nothing found for the given search");

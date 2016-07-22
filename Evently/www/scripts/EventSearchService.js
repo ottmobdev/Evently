@@ -2,6 +2,7 @@
 
     var baseUrl = 'https://www.eventbriteapi.com/v3/events/search/?token=GDRKH2DV2TS5FEEYAPAB';
 
+    var pagination;
 
     this.searchEvents = function (searchLocation, searchTerm, pageNumber, callback) {
 
@@ -40,12 +41,10 @@
                 //eventbrite events
                 //console.log(response.events);
 
+                pagination = response.pagination;
+
                 // add the new items
                 $.each(response.events, function (index, item) {
-
-                    console.log(index);
-                    console.log(item);
-                    console.log(item.name.text);
 
                     eventViewModels.push({
                         title: item.name.text,
@@ -55,7 +54,7 @@
                     });
                 });
 
-                callback(eventViewModels);
+                callback(pagination, eventViewModels);
 
                 //$.each(response.results, function (index, item) {
                 //    eventViewModels.push({
