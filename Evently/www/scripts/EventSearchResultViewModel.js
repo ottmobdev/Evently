@@ -41,11 +41,11 @@
         this.pageNumber(this.pageNumber() + 1);
         this.isSearching(true);
 
-        $.mobile.loading('show');
+        //$.mobile.loading('show');
 
         eventSearchService.searchEvents(this.searchLocation, this.searchTerm, this.pageNumber(), function (pags,events) {
             that.isSearching(false);
-            $.mobile.loading('hide');
+            //$.mobile.loading('hide');
             // push all of the received events into our list in one atomic action
 
             if (events.length > 0) {

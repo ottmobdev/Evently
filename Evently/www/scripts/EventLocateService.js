@@ -30,7 +30,7 @@
         }
 
         function errorLocate(error) {
-            console.log('errorLocate' + error);
+            
             callbackE(error);
         }
 

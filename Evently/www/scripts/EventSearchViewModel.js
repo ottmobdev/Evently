@@ -4,7 +4,7 @@
     /// </summary>
 
     var that = this,
-        eventSearchService = new EventSearchService();
+        eventSearchService = new EventSearchService(), eventLocateService = new EventLocateService();
 
     // --- properties
 
@@ -51,7 +51,34 @@
         }
     }
 
+    function havePosition(positionCity) {
+        var self = this;
+        console.log('hP');
+        console.log(positionCity);
+        that.searchLocation(positionCity);
+    }
+
+    function errorPositioning(err) {
+        console.log('eP');
+        var msgError = 'Function locating errored.';
+        //$.mobile.loading("hide");
+        $("#msgSearch > p").html(msgError);
+        $("#msgSearch").popup("open");
+    }
+
     // --- public functions
+
+    this.locate = function () {
+        /// <summary>
+        /// Saves the view model state to local storage
+        /// </summary>
+        //localStorage.setItem("state", that.recentSearches().toString());
+        //this.searchLocation("Otawa");
+        console.log('long tap');
+
+        eventLocateService.geoLocate(havePosition, errorPositioning);
+    }
+
 
     this.doSearch = function () {
         /// <summary>
@@ -80,7 +107,7 @@
             } else {
                 that.userMessage("Nothing found for the given search");
             }
-
+            $("#events").listview("refresh");
             that.isSearching(false);
         });
 

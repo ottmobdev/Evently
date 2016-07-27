@@ -38,18 +38,11 @@
         <script src="scripts/EventSearchResultViewModel.js"></script>
         <script src="scripts/EventSearchService.js"></script>
         <script src="scripts/EventViewModel.js"></script>
+        <script src="scripts/EventLocateService.js"></script>
         <script src="scripts/app.js"></script>
       
 
         <div data-role="page" id="pageSearch">
-
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="#" class="ui-btn-active">One</a></li>
-                    <li><a href="#">Two</a></li>
-                </ul>
-            </div><!-- /navbar -->
-
             <div data-role="header">
                 <h1></h1>
             </div><!-- /header -->
@@ -58,7 +51,7 @@
                 <p></p>
 
                 <form data-bind="submit: doSearch">
-                    <input type="search" name="searchL" data-bind="value: searchLocation, valueUpdate: 'afterkeydown'" data-mini="true" placeholder="Search Location"/>
+                    <input type="search" name="searchL" data-bind="value: searchLocation, valueUpdate: 'afterkeydown', event: { taphold: locate}" data-mini="true" placeholder="Search Location"/>
                     <input type="search" name="searchT" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" data-mini="true" placeholder="Search Term"/>
 
                     <input type="submit" value="Look them up" data-bind="enable: (searchTerm().length > 0 || searchLocation().length > 0) && isSearching() == false,
@@ -67,17 +60,27 @@
 
             </div><!-- /content -->
 
-
-            <input type="checkbox" name="checkbox-0 " data-bind="checked: useLocation">
-
             <div data-role="footer">
                 <h4></h4>
             </div><!-- /footer -->
+
+            <div data-role="popup" id="msgSearch" class="ui-content" style="max-width:280px" data-dismissible="true" data-position-to="window">
+                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <p></p>
+            </div>
+
         </div><!-- /page -->
 
         <!-- ### A page that renders the EventSearchResultsViewModel -->
         <div data-role="page" data-theme="a" data-add-back-btn="true"
-             id="eventSearchResultView">
+             id="eventSearchResultView" >
+
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#pageSearch" class="ui-btn-active">Search</a></li>
+                </ul>
+            </div><!-- /navbar -->
+
             <div data-role="header" data-theme="a">
                 <h1>Results</h1>
                 <p>Results<span class="text" data-bind="text: objectCount"></span>Events page:<span class="text" data-bind="text: itemsPage"></span>Page<span class="text" data-bind="text: pageCount"></span></p>
@@ -109,6 +112,12 @@
         <!-- ### A page that renders the EventViewModel -->
         <div data-role="page" data-theme="a" data-add-back-btn="true"
              id="eventView">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#pageSearch" class="ui-btn-active">Search</a></li>
+                    <li><a href="#eventSearchResultView">Search Results</a></li>
+                </ul>
+            </div><!-- /navbar -->
             <div data-role="header" data-theme="a">
                 <h1 data-bind="text: title">
             </div>

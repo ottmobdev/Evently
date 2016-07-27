@@ -28,6 +28,8 @@
         var url = baseUrl + "&page=" + pageNumber
         url = url + location + term;
 
+        $.mobile.loading('show');
+
         $.ajax({
             dataType: "json",
             url: url,
@@ -55,7 +57,7 @@
                 });
 
                 callback(pagination, eventViewModels);
-
+                
                 //$.each(response.results, function (index, item) {
                 //    eventViewModels.push({
                 //        author: item.from_user,
@@ -66,16 +68,13 @@
                 //});
 
                 //callback(eventViewModels);
+                $.mobile.loading('hide');
             },
-            fail: function (jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
+                $.mobile.loading('hide');
                 console.log(jqXHR);
                 console.log(textStatus);
                 console.log(errorThrown);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
         }
         });
     };
