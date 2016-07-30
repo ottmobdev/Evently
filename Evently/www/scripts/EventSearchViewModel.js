@@ -7,7 +7,6 @@
         eventSearchService = new EventSearchService(), eventLocateService = new EventLocateService();
 
     // --- properties
-
     this.template = "searchView";
     this.isSearching = ko.observable(false);
     this.userMessage = ko.observable();
@@ -61,7 +60,6 @@
     function errorPositioning(err) {
         console.log('eP');
         var msgError = 'Function locating errored.';
-        //$.mobile.loading("hide");
         $("#msgSearch > p").html(msgError);
         $("#msgSearch").popup("open");
     }
@@ -72,10 +70,7 @@
         /// <summary>
         /// Saves the view model state to local storage
         /// </summary>
-        //localStorage.setItem("state", that.recentSearches().toString());
-        //this.searchLocation("Otawa");
-        console.log('long tap');
-
+        
         eventLocateService.geoLocate(havePosition, errorPositioning);
     }
 
@@ -84,10 +79,6 @@
         /// <summary>
         /// Searches twitter for the current search term.
         /// </summary>
-
-        if ($.trim(this.searchTerm()) === "") {
-            //return;
-        }
 
         this.userMessage("");
         this.isSearching(true);
